@@ -51,14 +51,13 @@ class CircleLinkedListTest {
     void testToStringInteraction() {
         list.append("Data");
         
-        // Llamamos al toString
+        // 1. Ejecutamos el método real
         String result = list.toString();
         
-        // Verificamos que el resultado contiene los corchetes de la estructura
-        assertTrue(result.contains("["));
-        assertTrue(result.contains("Data"));
-        
-        // Verificamos que el método toString fue invocado
-        verify(list).toString();
+        // 2. Comprobamos el resultado (Assertion tradicional)
+        // NO usamos verify(list).toString()
+        assertNotNull(result);
+        assertTrue(result.contains("Data"), "El string debería contener el dato insertado");
+        assertTrue(result.contains("[") && result.contains("]"), "Debería tener formato de lista");
     }
 }

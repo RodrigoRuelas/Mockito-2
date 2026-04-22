@@ -1,5 +1,6 @@
 package com.vogella.junit5;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,9 +69,15 @@ class DynamicArrayTest {
         // Act
         dynamicArray.remove(0);
 
-        // Verificamos que el proceso de remoción fue exitoso
+        // Verificamos el estado real
         assertTrue(dynamicArray.isEmpty());
-        // Verificamos que se llamó al getSize internamente o durante el test
-        verify(dynamicArray, atLeastOnce()).getSize();
+        
+        // CORRECCIÓN: 
+        // Si quieres verificar que el tamaño ahora es 0, debes LLAMAR al método primero:
+        int actualSize = dynamicArray.getSize(); 
+        
+        // Ahora sí podemos verificar que se llamó
+        verify(dynamicArray).getSize();
+        assertEquals(0, actualSize);
     }
 }
